@@ -16,8 +16,8 @@ header h1{font-size:20px;font-weight:700;}
 .card{background:var(--white);border-radius:16px;padding:20px;box-shadow:0 2px 12px rgba(0,59,142,.10);border:1px solid var(--border);}
 .ct{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--blue);margin-bottom:14px;display:flex;align-items:center;gap:8px;}
 .num{background:var(--blue);color:white;border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;}
-input,textarea,select{width:100%;padding:12px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:15px;font-family:"DM Sans",sans-serif;color:var(--text);background:#fafbff;margin-bottom:10px;appearance:none;-webkit-appearance:none;}
-input:focus,textarea:focus,select:focus{outline:none;border-color:var(--accent);background:#fff;}
+input[type=text],input[type=date],input[type=time],textarea,select{width:100%;padding:12px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:15px;font-family:"DM Sans",sans-serif;color:var(--text);background:#fafbff;margin-bottom:10px;appearance:none;-webkit-appearance:none;}
+input[type=text]:focus,input[type=date]:focus,input[type=time]:focus,textarea:focus,select:focus{outline:none;border-color:var(--accent);background:#fff;}
 textarea{resize:vertical;min-height:90px;}
 .sw{position:relative;margin-bottom:10px;}
 .sw select{margin-bottom:0;}
@@ -26,10 +26,10 @@ textarea{resize:vertical;min-height:90px;}
 .two-col label{font-size:12px;font-weight:600;color:var(--muted);display:block;margin-bottom:4px;text-transform:uppercase;letter-spacing:.5px;}
 .two-col input{margin-bottom:0;}
 .checks{display:flex;flex-direction:column;gap:12px;}
-.check-item{display:flex;align-items:center;gap:12px;padding:12px 14px;border:1.5px solid var(--border);border-radius:10px;background:#fafbff;cursor:pointer;}
-.check-item input[type=checkbox]{width:20px;height:20px;margin:0;accent-color:var(--blue);cursor:pointer;appearance:auto;-webkit-appearance:auto;}
-.check-item label{font-size:15px;font-weight:500;cursor:pointer;flex:1;}
-.check-item.checked{border-color:var(--accent);background:#f0f4ff;}
+.check-label{display:flex;align-items:center;gap:12px;padding:12px 14px;border:1.5px solid var(--border);border-radius:10px;background:#fafbff;cursor:pointer;user-select:none;}
+.check-label input[type=checkbox]{width:22px;height:22px;margin:0;accent-color:var(--blue);flex-shrink:0;}
+.check-label span{font-size:15px;font-weight:500;}
+.check-label:has(input:checked){border-color:var(--accent);background:#f0f4ff;}
 .btns{display:flex;flex-direction:column;gap:10px;}
 .btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:15px;border:none;border-radius:12px;font-size:15px;font-family:"DM Sans",sans-serif;font-weight:700;cursor:pointer;}
 .bg{background:#25d366;color:white;}
@@ -73,27 +73,27 @@ textarea{resize:vertical;min-height:90px;}
   <div class="card">
     <div class="ct"><span class="num">3</span> 👷 ¿Quién va al trabajo?</div>
     <div class="checks">
-      <div class="check-item" id="wrap-lionel" onclick="toggleCheck('lionel','wrap-lionel')">
+      <label class="check-label">
         <input type="checkbox" id="lionel">
-        <label for="lionel">Lionel</label>
-      </div>
-      <div class="check-item" id="wrap-brian" onclick="toggleCheck('brian','wrap-brian')">
+        <span>Lionel</span>
+      </label>
+      <label class="check-label">
         <input type="checkbox" id="brian">
-        <label for="brian">Brian</label>
-      </div>
-      <div class="check-item" id="wrap-leo" onclick="toggleCheck('leo','wrap-leo')">
+        <span>Brian</span>
+      </label>
+      <label class="check-label">
         <input type="checkbox" id="leo">
-        <label for="leo">Leo</label>
-      </div>
+        <span>Leo</span>
+      </label>
     </div>
   </div>
   <div class="card">
     <div class="ct"><span class="num">4</span> 👤 Cliente</div>
-    <input id="cliente" placeholder="Nombre del cliente" autocomplete="off">
+    <input type="text" id="cliente" placeholder="Nombre del cliente" autocomplete="off">
   </div>
   <div class="card">
     <div class="ct"><span class="num">5</span> 📍 Dirección</div>
-    <input id="direccion" placeholder="Calle y número" autocomplete="off">
+    <input type="text" id="direccion" placeholder="Calle y número" autocomplete="off">
   </div>
   <div class="card">
     <div class="ct"><span class="num">6</span> 📝 Observaciones</div>
@@ -128,12 +128,6 @@ function ini() {
 function pad(n) { return String(n).padStart(2,"0"); }
 ini();
 setInterval(ini, 60000);
-
-function toggleCheck(id, wrapId) {
-  var cb = document.getElementById(id);
-  cb.checked = !cb.checked;
-  document.getElementById(wrapId).classList.toggle("checked", cb.checked);
-}
 
 function gf() {
   var v = document.getElementById("fecha").value;
@@ -208,7 +202,6 @@ function reset() {
   document.getElementById("horaFin").value = "";
   ["lionel","brian","leo"].forEach(function(id) {
     document.getElementById(id).checked = false;
-    document.getElementById("wrap-"+id).classList.remove("checked");
   });
   yaEnviado = false;
   document.getElementById("fecha").value = "";
