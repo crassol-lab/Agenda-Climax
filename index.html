@@ -113,7 +113,7 @@ textarea{resize:vertical;min-height:90px;}
 <div class="toast" id="toast"></div>
 <script>
 var yaEnviado = false;
-var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyuuXR1faJI9lWinkVn9COnntzkuIrbHFam8T2EUqmM70xyqUNMHm-2__0-ea-r4b28/exec';
+var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwghzMmqhWKA6iedADhQ_M-U5kSa8pY6MoySoG3Ec-fY4MsfP2dyuV0hUsDsipzmyhQ/exec';
 
 function toggleCheck(lblId, cb) {
   var lbl = document.getElementById(lblId);
@@ -196,7 +196,7 @@ function enviar() {
   fetch(SCRIPT_URL, {
     method: 'POST', mode: 'no-cors',
     headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({ hoja: 'agenda', fila: fila })
+    body: JSON.stringify({ hoja: 'Agenda', fila: fila })
   }).catch(function() {});
 
   toast("Turno guardado correctamente");
