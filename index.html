@@ -26,10 +26,10 @@ textarea{resize:vertical;min-height:90px;}
 .two-col label{font-size:12px;font-weight:600;color:var(--muted);display:block;margin-bottom:4px;text-transform:uppercase;letter-spacing:.5px;}
 .two-col input{margin-bottom:0;}
 .checks{display:flex;flex-direction:column;gap:12px;}
-.check-label{display:flex;align-items:center;gap:12px;padding:12px 14px;border:1.5px solid var(--border);border-radius:10px;background:#fafbff;cursor:pointer;user-select:none;}
+.check-label{display:flex;align-items:center;gap:12px;padding:12px 14px;border:1.5px solid var(--border);border-radius:10px;background:#fafbff;cursor:pointer;user-select:none;transition:border-color .15s,background .15s;}
 .check-label input[type=checkbox]{width:22px;height:22px;margin:0;accent-color:var(--blue);flex-shrink:0;}
 .check-label span{font-size:15px;font-weight:500;}
-.check-label:has(input:checked){border-color:var(--accent);background:#f0f4ff;}
+.check-label.activo{border-color:var(--accent);background:#f0f4ff;}
 .btns{display:flex;flex-direction:column;gap:10px;}
 .btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:15px;border:none;border-radius:12px;font-size:15px;font-family:"DM Sans",sans-serif;font-weight:700;cursor:pointer;}
 .bg{background:#25d366;color:white;}
@@ -73,16 +73,16 @@ textarea{resize:vertical;min-height:90px;}
   <div class="card">
     <div class="ct"><span class="num">3</span> 👷 ¿Quién va al trabajo?</div>
     <div class="checks">
-      <label class="check-label">
-        <input type="checkbox" id="lionel">
+      <label class="check-label" id="lbl-lionel">
+        <input type="checkbox" id="lionel" onchange="toggleCheck('lbl-lionel',this)">
         <span>Lionel</span>
       </label>
-      <label class="check-label">
-        <input type="checkbox" id="brian">
+      <label class="check-label" id="lbl-brian">
+        <input type="checkbox" id="brian" onchange="toggleCheck('lbl-brian',this)">
         <span>Brian</span>
       </label>
-      <label class="check-label">
-        <input type="checkbox" id="leo">
+      <label class="check-label" id="lbl-leo">
+        <input type="checkbox" id="leo" onchange="toggleCheck('lbl-leo',this)">
         <span>Leo</span>
       </label>
     </div>
@@ -114,6 +114,15 @@ textarea{resize:vertical;min-height:90px;}
 <script>
 var yaEnviado = false;
 var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyuuXR1faJI9lWinkVn9COnntzkuIrbHFam8T2EUqmM70xyqUNMHm-2__0-ea-r4b28/exec';
+
+function toggleCheck(lblId, cb) {
+  var lbl = document.getElementById(lblId);
+  if (cb.checked) {
+    lbl.classList.add("activo");
+  } else {
+    lbl.classList.remove("activo");
+  }
+}
 
 function ini() {
   var a = new Date();
@@ -202,6 +211,7 @@ function reset() {
   document.getElementById("horaFin").value = "";
   ["lionel","brian","leo"].forEach(function(id) {
     document.getElementById(id).checked = false;
+    document.getElementById("lbl-" + id).classList.remove("activo");
   });
   yaEnviado = false;
   document.getElementById("fecha").value = "";
