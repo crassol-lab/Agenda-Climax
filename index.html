@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Agenda - Climax Service</title>
+<title>Agenda Climax</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Mono:wght@500&display=swap" rel="stylesheet">
 <style>
 :root{--blue:#003b8e;--accent:#0057d9;--gray:#f0f2f7;--white:#fff;--text:#1a1a2e;--muted:#6b7280;--border:#dde2ec;--green:#16a34a;--green-light:#f0fdf4;--green-border:#bbf7d0;}
@@ -42,7 +42,7 @@ textarea{resize:vertical;min-height:90px;}
 <body>
 <header>
   <img src="logo.png" alt="Climax" style="height:48px;display:block;margin:0 auto 6px;">
-  <h1>📅 Agenda - Climax Service</h1>
+  <h1>📅 Agenda Climax</h1>
   <div class="fh" id="fh">-</div>
 </header>
 <div class="container">
@@ -54,6 +54,8 @@ textarea{resize:vertical;min-height:90px;}
         <option>Lionel</option>
         <option>Antonella</option>
         <option>Hector</option>
+        <option>Brian</option>
+        <option>Leo</option>
       </select>
     </div>
   </div>
@@ -173,7 +175,7 @@ function enviar() {
   var direccion = document.getElementById("direccion").value.trim();
   var obs = document.getElementById("obs").value.trim();
 
-  var m = "*AGENDA - CLIMAX SERVICE*\n";
+  var m = "*AGENDA CLIMAX*\n";
   m += "Fecha: " + fecha + "\n";
   if (horaInicio) m += "Horario: " + fmtHora(horaInicio) + (horaFin ? " - " + fmtHora(horaFin) : "") + "\n";
   m += "\nCliente: *" + cliente + "*\n";
@@ -186,9 +188,7 @@ function enviar() {
 
   yaEnviado = true;
 
-  var fila = [
-    fecha, horaInicio, horaFin, cliente, direccion, empleados, obs, cargador
-  ];
+  var fila = [fecha, horaInicio, horaFin, cliente, direccion, empleados, obs, cargador];
 
   fetch(SCRIPT_URL, {
     method: 'POST', mode: 'no-cors',
