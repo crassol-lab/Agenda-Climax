@@ -126,9 +126,7 @@ textarea{resize:vertical;min-height:90px;}
   </div>
   <div class="card" style="padding:16px">
     <div class="btns">
-      <button class="btn bg" onclick="enviar()">
-        📅 Guardar turno
-      </button>
+      <button class="btn bg" onclick="enviar()">📅 Guardar turno</button>
       <button class="btn br" onclick="resetForm()">🔄 Nuevo turno</button>
     </div>
   </div>
@@ -325,9 +323,8 @@ function getEmpleados() {
 }
 
 function calendarUrl(fecha, horaInicio, horaFin, cliente, direccion, empleados, obs) {
-  // fecha: dd/mm/yyyy, horas: hh:mm
   var p = fecha.split('/');
-  var dateStr = p[2] + p[1] + p[0]; // yyyymmdd
+  var dateStr = p[2] + p[1] + p[0];
 
   function toCalHora(h) {
     if (!h) return '';
@@ -349,7 +346,7 @@ function calendarUrl(fecha, horaInicio, horaFin, cliente, direccion, empleados, 
   if (empleados) desc.push('👷 ' + empleados);
   if (obs) desc.push('📝 ' + obs);
 
-  var url = 'https://calendar.google.com/calendar/render?action=TEMPLATE';
+  var url = 'https://calendar.google.com/calendar/render?action=TEMPLATE&authuser=climaxbase@gmail.com';
   url += '&text=' + encodeURIComponent(titulo);
   url += '&dates=' + encodeURIComponent(dates);
   if (direccion) url += '&location=' + encodeURIComponent(direccion);
