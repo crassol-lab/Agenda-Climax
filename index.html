@@ -340,7 +340,7 @@ function calendarUrl(fecha, horaInicio, horaFin, cliente, direccion, empleados, 
     dates = dateStr + '/' + dateStr;
   }
 
-  var titulo = 'Climax - ' + cliente;
+  var titulo = 'Climax - ' + cliente + (empleados ? ' — ' + empleados : '');
   var desc = [];
   if (direccion) desc.push('📍 ' + direccion);
   if (empleados) desc.push('👷 ' + empleados);
