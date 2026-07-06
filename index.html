@@ -68,7 +68,6 @@ textarea{resize:vertical;min-height:90px;}
   <div class="tab" id="tab-ver" onclick="verTab('ver')">📋 Ver turnos</div>
 </div>
 
-<!-- PANTALLA CARGAR -->
 <div id="pantalla-cargar">
 <div class="container">
   <div class="card">
@@ -134,14 +133,12 @@ textarea{resize:vertical;min-height:90px;}
 </div>
 </div>
 
-<!-- PANTALLA VER TURNOS -->
 <div id="pantalla-ver" style="display:none">
 <div class="container">
   <div id="lista-turnos"><div class="loading">Cargando turnos...</div></div>
 </div>
 </div>
 
-<!-- MODAL EDITAR -->
 <div class="modal-bg" id="modal-bg">
   <div class="modal">
     <div class="modal-titulo">✏️ Editar turno</div>
@@ -322,38 +319,6 @@ function getEmpleados() {
   return r.join(", ");
 }
 
-function calendarUrl(fecha, horaInicio, horaFin, cliente, direccion, empleados, obs) {
-  var p = fecha.split('/');
-  var dateStr = p[2] + p[1] + p[0];
-
-  function toCalHora(h) {
-    if (!h) return '';
-    return h.replace(':', '') + '00';
-  }
-
-  var dates = '';
-  if (horaInicio) {
-    var inicio = dateStr + 'T' + toCalHora(horaInicio);
-    var fin = horaFin ? dateStr + 'T' + toCalHora(horaFin) : dateStr + 'T' + toCalHora(horaInicio);
-    dates = inicio + '/' + fin;
-  } else {
-    dates = dateStr + '/' + dateStr;
-  }
-
-  var titulo = 'Climax - ' + cliente + (empleados ? ' — ' + empleados : '');
-  var desc = [];
-  if (direccion) desc.push('📍 ' + direccion);
-  if (empleados) desc.push('👷 ' + empleados);
-  if (obs) desc.push('📝 ' + obs);
-
-  var url = 'https://calendar.google.com/calendar/render?action=TEMPLATE&authuser=climaxbase@gmail.com';
-  url += '&text=' + encodeURIComponent(titulo);
-  url += '&dates=' + encodeURIComponent(dates);
-  if (direccion) url += '&location=' + encodeURIComponent(direccion);
-  if (desc.length) url += '&details=' + encodeURIComponent(desc.join('\n'));
-  return url;
-}
-
 function enviar() {
   var cargador = document.getElementById("cargador").value;
   if (!cargador) { toast("Selecciona quien carga"); return; }
@@ -377,11 +342,7 @@ function enviar() {
   }).catch(function(){});
 
   yaEnviado = true;
-  toast("Turno guardado. Abriendo Calendar...");
-
-  setTimeout(function(){
-    window.open(calendarUrl(fecha, horaInicio, horaFin, cliente, direccion, empleados, obs), '_blank');
-  }, 500);
+  toast("✅ Turno guardado en Sheets y Calendar");
 }
 
 function resetForm() {
